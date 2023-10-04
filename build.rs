@@ -6,8 +6,8 @@ use std::path::PathBuf;
 fn main() {
     println!("cargo:rustc-link-lib=dylib=postal");
 
-    let library = pkg_config::probe_library("libpostal")?;
-    
+    let library = pkg_config::probe_library("libpostal").unwrap();
+
     let bindings = bindgen::Builder::default()
         .clang_args(library.include_paths.iter().map(|path| format!("-I{}", path.to_string_lossy())))
         .formatter(bindgen::Formatter::Rustfmt)
